@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class App extends JFrame {
@@ -61,27 +63,22 @@ public class App extends JFrame {
         panel2.add(textField);
         panel2.add(button);
 
-
+// нажатие Enter
         textField.addActionListener(e -> {
-            textField.getText();
-
-            textField.setText("");
-
-        });
-
-        textField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-                    textField.getText();
-                    textField.setText("");
-                }
-
+            if(!textField.getText().equals("")) {
+                textArea.append(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) + "\n" + textField.getText() + "\n");
+                textField.setText("");
             }
+
         });
+//         нажатие кнопки
+
 
         button.addActionListener(e -> {
-            textArea.append(textField.getText()+ "\n\r");
+            if(!textField.getText().equals("")) {
+                textArea.append(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) + "\n" + textField.getText() + "\n");
+                textField.setText("");
+            }
         });
 
 
