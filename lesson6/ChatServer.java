@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class ChatServer {
@@ -19,24 +21,17 @@ public class ChatServer {
                 while (true) {
                     String message = is.readUTF();
                     System.out.println("received message: " + message);
-                    Scanner scanner = new Scanner(System.in);
-                    String messageToClient = scanner.nextLine();
-                    os.writeUTF("From server: " + messageToClient);
+
+                    while (true) {
+                        Scanner scanner = new Scanner(System.in);
+                        String messageToClient = scanner.nextLine();
+                        if (!messageToClient.equals("")) {
+                            os.writeUTF("From server: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) + "\n" + messageToClient + "\n");
+                        }
+                    }
 
                 }
             }
         }
     }
-        public static void sendToClient (Socket socket) {
-            try {
-                Scanner scanner = new Scanner(socket.getInputStream());
-                PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
-                String messageToClient = scanner.nextLine();
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
 }
